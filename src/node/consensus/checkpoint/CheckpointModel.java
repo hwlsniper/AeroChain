@@ -4,13 +4,13 @@ package node.consensus.checkpoint;
  * Created by DSY on 2018/3/15.
  */
 public class CheckpointModel {
-    int height;
+    private int height;
 
-    int id;
+    private int id;
 
-    String digest;
+    private String digest;
 
-    int view;
+    private int view;
 
     public int getHeight() {
         return height;

@@ -9,7 +9,7 @@ import node.consensus.mainStream.prepare.Prepare;
 import node.buffer.BufferPool;
 import model.node.consensusMessage.PrepareModel;
 import node.consensus.signUp.SignUp;
-import node.consensus.synchronize.Synchronize;
+import node.consensus.synchronize.Synchrony;
 import node.consensus.viewChange.ViewChange;
 import constant.Constant;
 import model.record.Record;
@@ -37,9 +37,9 @@ public class Resolver {
             else if (data.startsWith("<checkpoint"))
                 Checkpoint.process(data);
             else if (data.startsWith("<synchrony"))
-                Synchronize.process(data);
+                Synchrony.process(data);
             else if (data.startsWith("<synchronized"))
-                Synchronize.synchronize(data);
+                Synchrony.synchronize(data);
             else if (data.startsWith("<join"))
                 SignUp.process(data);
             else if (data.startsWith("<approve"))

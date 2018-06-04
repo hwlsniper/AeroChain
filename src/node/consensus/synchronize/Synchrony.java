@@ -11,7 +11,7 @@ import java.util.List;
 import static node.consensus.checkpoint.Checkpoint.isValidCheckpoint;
 import static node.consensus.mainStream.prepared.Prepared.isValidBlock;
 
-public class Synchronize {
+public class Synchrony {
     private static final int checkpointProofs = 3;
 
     private static final int checkpoint = 2;
@@ -21,12 +21,11 @@ public class Synchronize {
     private static final int blockchain = 6;
 
     public static void generate(){
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("<synchronize").append("<");
-        stringBuilder.append(Node.getBlockChainHeight()).append(",");
-        stringBuilder.append(Node.getId()).append(">");
+        SynchronyModel model = new SynchronyModel();
+        model.setHeight(Node.getBlockChainHeight());
+        model.setId(Node.getId());
         Node.setSynSwitcher(true);
-        Sender.broadcast(stringBuilder.toString());
+        Sender.broadcast("<synchronize>" + model);
     }
 
     public static void process(String data){
@@ -40,23 +39,4 @@ public class Synchronize {
         stringBuilder.append(Node.getBlockChain()).append(">");
         Sender.broadcast(stringBuilder.toString());
     }
-
-    public static void synchronize(String data){
-        String[] strings = data.split(",");
-        int checkpoint = Integer.valueOf(strings[Synchronize.checkpoint]);
-        String checkpointProof = strings[checkpointProofs];
-        List<Block> blockchain = null;
-        List<List<String>> blockProof = null;
-        if (isValidCheckpoint(checkpoint , checkpointProof) && isValidBlock(checkpoint , blockchain , blockProof)){
-            Node.setBlockChain(blockchain);
-//            for (Block block : Node.getTmpBlocks()){
-//                if ()
-//            }
-            Node.setSynSwitcher(false);
-        }
-    }
-
-
-
-
 }

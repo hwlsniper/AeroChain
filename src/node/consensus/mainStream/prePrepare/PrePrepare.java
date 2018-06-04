@@ -1,6 +1,6 @@
 package node.consensus.mainStream.prePrepare;
 
-import model.annotation.MulThreadSharedData;
+import model.annotation.MulThreadShareData;
 import model.node.consensusMessage.PrePrepareModel;
 import node.buffer.BufferPool;
 import com.alibaba.fastjson.JSON;
@@ -26,7 +26,7 @@ public class PrePrepare {
      * 记录当前共识轮次中主节点提出的prePrepare消息
      * 多线程共享数据
      */
-    @MulThreadSharedData.MulThreadShareData
+    @MulThreadShareData
     private static String digest;
 
     /**
