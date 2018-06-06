@@ -1,6 +1,6 @@
-package node.consensus.synchronize;
+package model.node.consensusMessage;
 
-import node.consensus.mainStream.prepared.PreparedEvidence;
+import model.node.consensusMessage.PreparedEvidence;
 
 /**
  * Created by DSY on 2018/6/3.

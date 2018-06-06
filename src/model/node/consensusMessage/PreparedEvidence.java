@@ -1,4 +1,4 @@
-package node.consensus.mainStream.prepared;
+package model.node.consensusMessage;
 
 /**
  * Created by DSY on 2018/6/3.

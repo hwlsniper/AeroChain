@@ -33,7 +33,7 @@ public class Client implements Runnable{
             while ((input = stdin.readLine()) != null){
                 printWriter.println("客户端输入" + input);
                 Record record = new Record(input);
-                Sender.broadcast(JSON.toJSONString(record));
+                Sender.broadcast("<record>" + JSON.toJSONString(record));
             }
         }catch (IOException e){
             e.printStackTrace();

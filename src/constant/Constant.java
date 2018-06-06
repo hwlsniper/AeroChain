@@ -1,7 +1,8 @@
 package constant;
 
-import com.sun.deploy.util.SystemUtils;
+import org.apache.commons.lang3.SystemUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,13 @@ public class Constant {
 
     public static final String SEPARTOR = "- - - - - - - - - -";
 
-    public static final String WINDOWS_BASEPATH = "C:\\Users\\DSY\\blockchain\\";
+    private static final String WINDOWS_BASE_PATH = "C:\\Users\\DSY\\blockchain\\";
 
-    public static final String MAC_BASEPATH = "/Users/dingsiye/projects/AeroChain/";
+    private static final String MAC_BASE_PATH = "/Users/dingsiye/projects/AeroChain/";
 
-    public static final String WINDOWS_LOG_BASEPATH = "C:\\Users\\DSY\\blockchain\\log\\";
+    public static String BASE_PATH = SystemUtils.IS_OS_WINDOWS ? WINDOWS_BASE_PATH : MAC_BASE_PATH;
 
-    public static final String MAC_LOG_BASEPATH = "/Users/dingsiye/projects/AeroChain/log/";
+    public static final String LOG_BASE_PATH = BASE_PATH + File.separator + "log";
 
     public static List<String> address = new ArrayList<>();
     static {
@@ -35,7 +36,7 @@ public class Constant {
         address.add("192.168.0.116");
     }
 
-    public static final String CLIENT_LOG_ADDRESS = MAC_LOG_BASEPATH + "client";
+    public static final String CLIENT_LOG_ADDRESS = LOG_BASE_PATH + "client";
 
     public static final String UTF_8 = "UTF-8";
 }

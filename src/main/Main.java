@@ -7,7 +7,6 @@ import node.consensus.mainStream.generateBlock.GenerateBlock;
 import model.node.Node;
 import node.communication.Receiver;
 import node.consensus.mainStream.prepared.Prepared;
-import node.consensus.signUp.SignUp;
 import util.hash.Hash;
 import util.simulator.Simulator;
 
@@ -43,8 +42,6 @@ public class Main {
                     for (Block b : result)
                         System.out.println(Hash.hash(b.toString()) + " " + b);
                 }
-                if (input.equals("signUp"))
-                    SignUp.generate();
                 if (input.startsWith("f:"))
                     Node.setFaultyNodeNums(input.replace("f:" , ""));
                 if (input.equals("exit")){

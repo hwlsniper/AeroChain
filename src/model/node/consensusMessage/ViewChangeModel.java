@@ -1,7 +1,7 @@
-package node.consensus.viewChange;
+package model.node.consensusMessage;
 
-import node.consensus.checkpoint.CheckpointEvidence;
-import node.consensus.mainStream.prepared.PreparedEvidence;
+import model.node.consensusMessage.CheckpointEvidence;
+import model.node.consensusMessage.PreparedEvidence;
 
 /**
  * Created by DSY on 2018/5/10.

@@ -15,7 +15,7 @@ public class Simulator implements Runnable{
 
     public static void init(){
         try {
-            printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.WINDOWS_LOG_BASEPATH), "UTF-8")));
+            printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.LOG_BASE_PATH), "UTF-8")));
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("simulate.txt"), "UTF-8"));
         } catch (UnsupportedEncodingException | FileNotFoundException e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class Simulator implements Runnable{
                 e.printStackTrace();
             }
             printWriter.println(record);
-            Sender.broadcast(JSON.toJSONString(record));
+            Sender.broadcast("<record>"+JSON.toJSONString(record));
         }
     }
 }

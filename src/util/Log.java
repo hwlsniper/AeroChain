@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Log {
-    private static final String basePath = Constant.MAC_LOG_BASEPATH;
+    private static final String basePath = Constant.LOG_BASE_PATH;
 
     public static void log(String log , String path , boolean append){
         try {
