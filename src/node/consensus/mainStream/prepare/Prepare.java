@@ -9,6 +9,9 @@ import model.node.consensusMessage.PrePrepareModel;
 import model.node.Node;
 import util.Log;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * 实现共识算法中涉及prepare消息功能的类
  */
@@ -19,6 +22,9 @@ public class Prepare {
      */
     @MulThreadShareData
     private static volatile int validPrepare;
+
+    @MulThreadShareData
+    public static volatile Set<PrepareModel> evidence = new HashSet<>();
 
     /**
      * 区块链节点根据自己认可的prePrepare消息广播prepare消息
@@ -44,6 +50,7 @@ public class Prepare {
         Log.log(prepare.toString(), "prepareLog" , true);
         if (isValid(prepare)) {
             setValidPrepare(validPrepare + 1);
+            evidence.add(prepare);
         }
     }
 

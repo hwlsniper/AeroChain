@@ -7,20 +7,28 @@ import model.node.Node;
 import util.Log;
 import util.hash.Hash;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 用于实现检查点协议的相关内容
  */
 public class Checkpoint {
-    public static String stataHash;
+    public static String stateHash;
+
+    public static int count = 0;
+
+    private static Set<CheckpointModel> evidence = new HashSet<>();
+
+    public static int checkpoint = 0;
 
     public synchronized static void generate(){
         CheckpointModel model = new CheckpointModel();
         model.setId(Node.getId());
         model.setDigest(Hash.hash(Node.getBlockChain().get(Node.getBlockChainHeight() - 1).toString()));
         model.setView(Node.getView());
-        stataHash = Hash.hash(model.toString());
+        model.setHeight(Node.getBlockChainHeight());
+        stateHash = Hash.hash(model.toString());
+        count = 0;
     }
 
     /**
@@ -28,7 +36,14 @@ public class Checkpoint {
      * @param model 别的节点发送的checkpoint消息
      */
     public synchronized static void process(CheckpointModel model){
-        if ()
+        String hash = Hash.hash(model.toString());
+        if (hash.equals(stateHash) && model.getView() == Node.getId()){
+            evidence.add(model);
+            count++;
+            if (count >= Node.getCrashThreshold()){
+                checkpoint = model.getHeight();
+            }
+        }
     }
 
     private static void deleteOldData(){}

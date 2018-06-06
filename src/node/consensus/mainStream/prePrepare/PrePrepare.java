@@ -29,6 +29,9 @@ public class PrePrepare {
     @MulThreadShareData
     private static String digest;
 
+    @MulThreadShareData
+    public static volatile PrePrepareModel evidence;
+
     /**
      * 主节点发送prePrepare消息功能
      * @param block prePrepare中的新区块
@@ -52,6 +55,7 @@ public class PrePrepare {
         if (isValid(prePrepare)){
             setDigest(prePrepare.getDigest());
             setBlock(prePrepare.getBlock());
+            evidence = prePrepare;
             Prepare.generate(prePrepare);
         }
     }

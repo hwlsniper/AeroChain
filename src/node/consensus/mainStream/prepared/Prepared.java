@@ -1,13 +1,13 @@
 package node.consensus.mainStream.prepared;
 
 import constant.Constant;
+import model.node.consensusMessage.PreparedEvidence;
 import node.consensus.checkpoint.Checkpoint;
 import node.consensus.mainStream.prePrepare.PrePrepare;
 import node.consensus.mainStream.prepare.Prepare;
 import model.block.Block;
 import model.node.Node;
 import node.consensus.viewChange.ViewChange;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +20,8 @@ import java.util.concurrent.TimeUnit;
  * viewChange和同步协议中涉及为区块生成证据的功能目前考虑在该类中实现，不确定
  */
 public class Prepared implements Runnable {
+    public static List<PreparedEvidence> evidence = new ArrayList<>();
+
     @Override
     public void run() {
         while (!Node.isViewChangeSwitcher()){
@@ -30,6 +32,7 @@ public class Prepared implements Runnable {
             }
             if (Prepare.getValidPrepare() >= Node.getThreshold()) {
                 Node.addBlock(PrePrepare.getBlock());
+                evidence.add(new PreparedEvidence(PrePrepare.evidence ,Prepare.evidence));
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);
                 Prepare.setValidPrepare(0);

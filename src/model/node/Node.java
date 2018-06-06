@@ -39,12 +39,15 @@ public class Node {
 
     private static String faultyNodeNum = "1";
 
-    private volatile static int threshold = Integer.MAX_VALUE;
+    private static int threshold = Integer.MAX_VALUE;
+
+    private static int crashThreshold = Integer.MAX_VALUE;
 
     public static void threshold(){
         int n = Node.getNodeNums();
         int f = Integer.valueOf(Node.getFaultyNodeNums());
         threshold = (int) Math.ceil((n - f) / 2) + f + ((n - f ) % 2 == 0 ? 1 : 0);
+        crashThreshold = 2 * f + 1;
     }
 
     public static boolean isPrimary(){
@@ -82,10 +85,6 @@ public class Node {
 
     public static int getThreshold() {
         return threshold;
-    }
-
-    public static void setThreshold(int threshold) {
-        Node.threshold = threshold;
     }
 
     public static boolean isSynSwitcher() {
@@ -138,5 +137,9 @@ public class Node {
 
     public synchronized static void setBlockChain(List<Block> newBlockChain) {
         blockChain = newBlockChain;
+    }
+
+    public static int getCrashThreshold() {
+        return crashThreshold;
     }
 }
