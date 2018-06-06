@@ -35,7 +35,7 @@ public class GenerateBlock implements Runnable{
 
     /**
      * 在有SPV节点的区块链应用中，通过使用merkle树可以使轻量级节点高效的证明一笔交易
-     * 但是在AeroChain中，目前全部节点均为全节点，因此提供merkle树的意义不大
+     * 但是在AeroChain中，目前全部节点均为全节点（full node），因此提供merkle树的意义不大
      * 如果有需要，日后可再实现梅克尔树
      * @param records 用于构造merkle树的数据
      * 将输入数据按字典序排序
@@ -43,18 +43,18 @@ public class GenerateBlock implements Runnable{
      */
     private String getMerkleTree(List<Record> records){
         String result = "merkle_root";
-        if (records.size() == 0) return result;
-        int size = records.size();
-        int exponential = 0;
-        while (Math.pow(2 , exponential) < size){
-            exponential++;
-        }
-        int add = (int)(Math.pow(2 , exponential) - size);
-        while (add > 0){
-            records.add(new Record());
-            add--;
-        }
-        records.sort(Comparator.comparing(Record::getRecord));
+//        if (records.size() == 0) return result;
+//        int size = records.size();
+//        int exponential = 0;
+//        while (Math.pow(2 , exponential) < size){
+//            exponential++;
+//        }
+//        int add = (int)(Math.pow(2 , exponential) - size);
+//        while (add > 0){
+//            records.add(new Record());
+//            add--;
+//        }
+//        records.sort(Comparator.comparing(Record::getRecord));
         return result;
     }
 }

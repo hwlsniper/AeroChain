@@ -1,6 +1,7 @@
 package node.consensus.mainStream.prepared;
 
 import constant.Constant;
+import node.consensus.checkpoint.Checkpoint;
 import node.consensus.mainStream.prePrepare.PrePrepare;
 import node.consensus.mainStream.prepare.Prepare;
 import model.block.Block;
@@ -32,6 +33,9 @@ public class Prepared implements Runnable {
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);
                 Prepare.setValidPrepare(0);
+                if (Node.getBlockChainHeight() % Constant.CHECKPOINT_HEIGHT == 0){
+                    Checkpoint.generate();
+                }
             }else {
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);

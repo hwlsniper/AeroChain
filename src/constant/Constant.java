@@ -13,7 +13,7 @@ public class Constant {
 
     public static final int PORT = 7777;
 
-    public static final int CHECKPOINT = 60;
+    public static final int CHECKPOINT_HEIGHT = 60;
 
     public static final int BLOCK_GAP = 10;
 
