@@ -1,5 +1,6 @@
 package node.buffer;
 
+import model.annotation.MulThreadShareData;
 import model.record.Record;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.Set;
  * 我们假设不保存数据的输入顺序，因此使用HashSet存储顺序
  */
 public class BufferPool {
+    @MulThreadShareData
     private static Set<Record> pool = new HashSet<>();
 
     public static synchronized List<Record> generateBlockRecord(){
@@ -22,7 +24,7 @@ public class BufferPool {
         pool.add(record);
     }
 
-    public static boolean isContain(Record record){
+    public static synchronized boolean isContain(Record record){
         return pool.contains(record);
     }
 }

@@ -1,15 +1,15 @@
-package main.init;
+package main;
 
 import model.node.Node;
 import node.communication.Receiver;
 import client.Client;
 import util.simulator.Simulator;
 
-public class Initial {
-    public static void init(){
+class Initial {
+    static void init(){
         Receiver.init();
         Simulator.init();
-        Client.init();
+//        Client.init();
         Node.threshold();
     }
 }

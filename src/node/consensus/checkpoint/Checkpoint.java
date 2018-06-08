@@ -13,13 +13,13 @@ import java.util.*;
  * 用于实现检查点协议的相关内容
  */
 public class Checkpoint {
-    public static String stateHash;
+    private static String stateHash;
 
-    public static int count = 0;
+    private static int count = 0;
 
     private static Set<CheckpointModel> evidence = new HashSet<>();
 
-    public static int checkpoint = 0;
+    private static int checkpoint = 0;
 
     public synchronized static void generate(){
         CheckpointModel model = new CheckpointModel();
@@ -48,11 +48,18 @@ public class Checkpoint {
 
     private static void deleteOldData(){}
 
-    public static List<String> getCheckpointProofs(){
-        return Log.getLogs("checkpoint");
+    public static Set<CheckpointModel> getCheckpointProofs(){
+        return evidence;
     }
 
-    public static boolean isValidCheckpoint(int checkpoint , String proof){
-        return true;
+    public static boolean isValidCheckpoint(int checkpoint, Set<CheckpointModel> evidence){
+        if (evidence.size() < Node.getCrashThreshold()) return false;
+        Iterator<CheckpointModel> iterator = evidence.iterator();
+        CheckpointModel example = iterator.next();
+        return example.getHeight() == checkpoint;
+    }
+
+    public static int getLatesetCheckpoint() {
+        return checkpoint;
     }
 }

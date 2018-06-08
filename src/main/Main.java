@@ -1,7 +1,5 @@
 package main;
 
-import client.Client;
-import main.init.Initial;
 import model.block.Block;
 import node.consensus.mainStream.generateBlock.GenerateBlock;
 import model.node.Node;
@@ -26,13 +24,14 @@ public class Main {
     public static boolean running = false;
 
     public static void main(String[] args) throws Exception{
+        running = true;
         Initial.init();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.execute(new Receiver());
         executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());
         executorService.execute(new Prepared());
-        executorService.execute(new Client());
+//        executorService.execute(new Client());
         while (true){
             BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
             String input;
@@ -45,7 +44,7 @@ public class Main {
                 if (input.startsWith("f:"))
                     Node.setFaultyNodeNums(input.replace("f:" , ""));
                 if (input.equals("exit")){
-                    Receiver.clean();
+                    Clean.cleanUp();
                     executorService.shutdown();
                     System.exit(0);
                 }

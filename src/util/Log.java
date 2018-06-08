@@ -18,18 +18,4 @@ public class Log {
             e.printStackTrace();
         }
     }
-
-    public static List<String> getLogs(String path){
-        List<String> result = new ArrayList<>();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(basePath + path)));
-            String line;
-            while ((line = bufferedReader.readLine()) != null){
-                result.add(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
 }

@@ -17,26 +17,22 @@ public class Constant {
 
     public static final int BLOCK_GAP = 10;
 
-    public static final String SEPARTOR = "- - - - - - - - - -";
-
     private static final String WINDOWS_BASE_PATH = "C:\\Users\\DSY\\blockchain\\";
 
     private static final String MAC_BASE_PATH = "/Users/dingsiye/projects/AeroChain/";
 
-    public static String BASE_PATH = SystemUtils.IS_OS_WINDOWS ? WINDOWS_BASE_PATH : MAC_BASE_PATH;
+    private static String BASE_PATH = SystemUtils.IS_OS_WINDOWS ? WINDOWS_BASE_PATH : MAC_BASE_PATH;
 
-    public static final String LOG_BASE_PATH = BASE_PATH + File.separator + "log";
+    public static final String LOG_BASE_PATH = BASE_PATH + File.separator + "log" + File.separator;
 
     public static List<String> address = new ArrayList<>();
     static {
         address.add("127.0.0.1");
-        address.add("192.168.0.112");
-        address.add("192.168.0.124");
-        address.add("192.168.0.127");
-        address.add("192.168.0.116");
+//        address.add("192.168.0.112");
+//        address.add("192.168.0.124");
+//        address.add("192.168.0.127");
+//        address.add("192.168.0.116");
     }
 
-    public static final String CLIENT_LOG_ADDRESS = LOG_BASE_PATH + "client";
-
-    public static final String UTF_8 = "UTF-8";
+    public static final String SIMULATE = BASE_PATH + "simulate.txt";
 }
