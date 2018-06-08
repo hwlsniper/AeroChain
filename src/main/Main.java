@@ -5,6 +5,7 @@ import node.consensus.mainStream.generateBlock.GenerateBlock;
 import model.node.Node;
 import node.communication.Receiver;
 import node.consensus.mainStream.prepared.Prepared;
+import util.Log;
 import util.hash.Hash;
 import util.simulator.Simulator;
 
@@ -39,7 +40,7 @@ public class Main {
                 if (input.equals("show")){
                     List<Block> result = Node.getBlockChain();
                     for (Block b : result)
-                        System.out.println(Hash.hash(b.toString()) + " " + b);
+                        Log.log(b.toString(), "blocks", true);
                 }
                 if (input.startsWith("f:"))
                     Node.setFaultyNodeNums(input.replace("f:" , ""));

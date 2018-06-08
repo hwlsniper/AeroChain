@@ -24,7 +24,7 @@ public class Prepare {
     private static volatile int validPrepare;
 
     @MulThreadShareData
-    public static volatile Set<PrepareModel> evidence = new HashSet<>();
+    private static volatile Set<PrepareModel> evidence = new HashSet<>();
 
     /**
      * 区块链节点根据自己认可的prePrepare消息广播prepare消息
@@ -66,5 +66,9 @@ public class Prepare {
 
     public synchronized static void setValidPrepare(int validPrepare) {
         Prepare.validPrepare = validPrepare;
+    }
+
+    public synchronized static Set<PrepareModel> getEvidence() {
+        return evidence;
     }
 }

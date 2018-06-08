@@ -1,14 +1,14 @@
 package node.consensus.mainStream.prePrepare;
 
-import model.annotation.MulThreadShareData;
-import model.node.consensusMessage.PrePrepareModel;
-import node.buffer.BufferPool;
 import com.alibaba.fastjson.JSON;
+import model.annotation.MulThreadShareData;
+import model.block.Block;
+import model.node.Node;
+import model.node.consensusMessage.PrePrepareModel;
+import model.record.Record;
+import node.buffer.BufferPool;
 import node.communication.Sender;
 import node.consensus.mainStream.prepare.Prepare;
-import model.block.Block;
-import model.record.Record;
-import model.node.Node;
 import util.Log;
 import util.hash.Hash;
 
@@ -20,6 +20,7 @@ public class PrePrepare {
      * 记录当前共识轮次中主节点提出的新区块
      * 多线程共享数据
      */
+    @MulThreadShareData
     private volatile static Block block;
 
     /**
@@ -30,7 +31,7 @@ public class PrePrepare {
     private static String digest;
 
     @MulThreadShareData
-    public static volatile PrePrepareModel evidence;
+    private static volatile PrePrepareModel evidence;
 
     /**
      * 主节点发送prePrepare消息功能
@@ -50,7 +51,7 @@ public class PrePrepare {
      * 节点接收到主节点发送的prePrepare消息后，首先记录日志，进行验证，如果认可，则发送prepare消息
      * @param prePrepare 主节点广播的prePrepare消息
      */
-    public static void process(PrePrepareModel prePrepare){
+    public static synchronized void process(PrePrepareModel prePrepare){
         Log.log(prePrepare.toString() , "prePrepareLog" , true);
         if (isValid(prePrepare)){
             setDigest(prePrepare.getDigest());
@@ -86,5 +87,9 @@ public class PrePrepare {
 
     public synchronized static void setBlock(Block block) {
         PrePrepare.block = block;
+    }
+
+    public synchronized static PrePrepareModel getEvidence() {
+        return evidence;
     }
 }

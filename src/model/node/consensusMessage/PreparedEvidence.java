@@ -12,24 +12,23 @@ public class PreparedEvidence {
 
     private Set<PrepareModel> prepare;
 
-    public PreparedEvidence(PrePrepareModel prePrepare, Set<PrepareModel> prepare) {
+    private int height;
+
+    public PreparedEvidence(PrePrepareModel prePrepare, Set<PrepareModel> prepare, int height) {
         this.prePrepare = prePrepare;
         this.prepare = prepare;
+        this.height = height;
     }
 
     public PrePrepareModel getPrePrepare() {
         return prePrepare;
     }
 
-    public void setPrePrepare(PrePrepareModel prePrepare) {
-        this.prePrepare = prePrepare;
-    }
-
     public Set<PrepareModel> getPrepare() {
         return prepare;
     }
 
-    public void setPrepare(Set<PrepareModel> prepare) {
-        this.prepare = prepare;
+    public int getHeight() {
+        return height;
     }
 }

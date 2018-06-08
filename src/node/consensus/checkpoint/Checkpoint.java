@@ -1,10 +1,7 @@
 package node.consensus.checkpoint;
 
-import model.block.Block;
 import model.node.consensusMessage.CheckpointModel;
-import node.communication.Sender;
 import model.node.Node;
-import util.Log;
 import util.hash.Hash;
 
 import java.util.*;

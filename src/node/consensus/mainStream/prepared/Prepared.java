@@ -1,16 +1,18 @@
 package node.consensus.mainStream.prepared;
 
 import constant.Constant;
+import model.annotation.MulThreadShareData;
+import model.node.Node;
 import model.node.consensusMessage.PreparedEvidence;
 import node.consensus.checkpoint.Checkpoint;
 import node.consensus.mainStream.prePrepare.PrePrepare;
 import node.consensus.mainStream.prepare.Prepare;
-import model.block.Block;
-import model.node.Node;
 import node.consensus.viewChange.ViewChange;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * Created by DSY on 2018/5/31.
@@ -20,7 +22,8 @@ import java.util.concurrent.TimeUnit;
  * viewChange和同步协议中涉及为区块生成证据的功能目前考虑在该类中实现，不确定
  */
 public class Prepared implements Runnable {
-    public static List<PreparedEvidence> evidence = new ArrayList<>();
+    @MulThreadShareData
+    private static List<PreparedEvidence> evidence = new ArrayList<>();
 
     @Override
     public void run() {
@@ -32,7 +35,7 @@ public class Prepared implements Runnable {
             }
             if (Prepare.getValidPrepare() >= Node.getThreshold()) {
                 Node.addBlock(PrePrepare.getBlock());
-                evidence.add(new PreparedEvidence(PrePrepare.evidence ,Prepare.evidence));
+                add(new PreparedEvidence(PrePrepare.getEvidence(), Prepare.getEvidence(), Node.getBlockChainHeight()));
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);
                 Prepare.setValidPrepare(0);
@@ -48,14 +51,13 @@ public class Prepared implements Runnable {
         }
     }
 
-    @Deprecated
-    public static List<List<String>> getPreparedProofsAfterCheckpoint(){
-        List<List<String>> result = new ArrayList<>();
-        return result;
+    public synchronized static List<PreparedEvidence> getEvidenceByHeight(int start, int end) {
+        return evidence.stream().
+                filter(evidence -> evidence.getHeight() >= start && evidence.getHeight() <= end).
+                collect(Collectors.toList());
     }
 
-    @Deprecated
-    public static boolean isValidBlock(int checkpoint , List<Block> blockchain , List<List<String>> proof){
-        return true;
+    private synchronized static void add(PreparedEvidence evidence) {
+        Prepared.evidence.add(evidence);
     }
 }
