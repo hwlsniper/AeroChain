@@ -29,6 +29,11 @@ public class GenerateBlock implements Runnable{
             int currentHeight = Node.getBlockChainHeight();
             String prevHash = currentHeight == 0 ? "non" : Node.getLatestHash();
             Block block = new Block(merkleRoot, prevHash, Node.getId(), Node.getView(), new Date(), records, currentHeight + 1);
+            try {
+                TimeUnit.SECONDS.sleep(Constant.BLOCK_GAP);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             PrePrepare.generate(block);
         }
     }

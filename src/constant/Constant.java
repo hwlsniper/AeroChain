@@ -15,7 +15,7 @@ public class Constant {
 
     public static final int CHECKPOINT_HEIGHT = 60;
 
-    public static final int BLOCK_GAP = 10;
+    public static final int BLOCK_GAP = 5;
 
     private static final String WINDOWS_BASE_PATH = "C:\\Users\\DSY\\blockchain\\";
 
