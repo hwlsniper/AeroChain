@@ -1,16 +1,11 @@
 package constant;
 
 import org.apache.commons.lang3.SystemUtils;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Constant {
-    public static final String PRE_PREPARE_TAG = "<pre-prepare>";
-
-    public static final String PREPARE_TAG = "<prepare>";
-
     public static final int PORT = 7777;
 
     public static final int CHECKPOINT_HEIGHT = 60;
