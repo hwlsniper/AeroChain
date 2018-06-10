@@ -46,7 +46,7 @@ public class Node {
     public static void threshold(){
         int n = Node.getNodeNums();
         int f = Integer.valueOf(Node.getFaultyNodeNums());
-        threshold = (int) Math.ceil((n - f) / 2) + f + ((n - f ) % 2 == 0 ? 1 : 0);
+        threshold = (int)Math.ceil((double)(n-f)/2) + f + ((n - f ) % 2 == 0 ? 1 : 0);
         crashThreshold = 2 * f + 1;
     }
 

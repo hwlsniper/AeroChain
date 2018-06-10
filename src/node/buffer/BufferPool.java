@@ -17,7 +17,9 @@ public class BufferPool {
     private static Set<Record> pool = new HashSet<>();
 
     public static synchronized List<Record> generateBlockRecord(){
-        return new ArrayList<>(pool);
+        List<Record> result = new ArrayList<>(pool);
+        pool = new HashSet<>();
+        return result;
     }
 
     public static synchronized void add(Record record){

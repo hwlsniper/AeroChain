@@ -19,7 +19,8 @@ public class ViewChange {
     private static List<String> viewChangeProofs = new ArrayList<>();
 
     public static void generate(){
-
+        System.out.println("view change");
+        System.exit(0);
     }
 
     public static void process(ViewChangeModel model){

@@ -1,6 +1,7 @@
 package node.communication;
 
 import main.Main;
+import util.Log;
 
 import java.io.IOException;
 import java.net.*;
@@ -22,6 +23,7 @@ public class Receiver implements Runnable {
                 e.printStackTrace();
             }
             String recvStr = new String(recvPacket.getData() , 0 , recvPacket.getLength());
+            Log.log(recvStr, "receive.txt", true);
             Resolver.resolve(recvStr);
         }
     }

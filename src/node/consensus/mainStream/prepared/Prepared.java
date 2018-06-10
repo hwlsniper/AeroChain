@@ -29,7 +29,10 @@ public class Prepared implements Runnable {
     public void run() {
         while (!Node.isViewChangeSwitcher()){
             try {
-                TimeUnit.SECONDS.sleep(Constant.BLOCK_GAP);
+                //为了保证不会过早的验证是否生成区块，使检查新区块的时间和生成新区块的时间错开3秒
+                if (Node.getBlockChainHeight() == 0)
+                    TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(2 * Constant.BLOCK_GAP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
