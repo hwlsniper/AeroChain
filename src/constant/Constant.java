@@ -22,11 +22,10 @@ public class Constant {
 
     public static List<String> address = new ArrayList<>();
     static {
-        address.add("127.0.0.1");
-//        address.add("192.168.0.112");
-//        address.add("192.168.0.124");
-//        address.add("192.168.0.127");
-//        address.add("192.168.0.116");
+        address.add("192.168.0.114");
+        address.add("192.168.0.37");
+        address.add("192.168.0.111");
+        address.add("192.168.0.113");
     }
 
     public static final String SIMULATE = BASE_PATH + "simulate.txt";
