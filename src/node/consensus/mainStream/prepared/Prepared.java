@@ -2,12 +2,16 @@ package node.consensus.mainStream.prepared;
 
 import constant.Constant;
 import model.annotation.MulThreadShareData;
+import model.block.Block;
 import model.node.Node;
 import model.node.consensusMessage.PreparedEvidence;
+import model.record.Record;
+import node.buffer.BufferPool;
 import node.consensus.checkpoint.Checkpoint;
 import node.consensus.mainStream.prePrepare.PrePrepare;
 import node.consensus.mainStream.prepare.Prepare;
 import node.consensus.viewChange.ViewChange;
+import util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +41,12 @@ public class Prepared implements Runnable {
                 e.printStackTrace();
             }
             if (Prepare.getValidPrepare() >= Node.getThreshold()) {
-                Node.addBlock(PrePrepare.getBlock());
+                Block block = PrePrepare.getBlock();
+                Node.addBlock(block);
+                for (Record tmp : block.getData()){
+                    BufferPool.remove(tmp);
+                }
+                Log.log(PrePrepare.getBlock().toString(), "block.txt", true);
                 add(new PreparedEvidence(PrePrepare.getEvidence(), Prepare.getEvidence(), Node.getBlockChainHeight()));
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);

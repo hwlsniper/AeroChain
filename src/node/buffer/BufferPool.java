@@ -26,6 +26,8 @@ public class BufferPool {
         pool.add(record);
     }
 
+    public static synchronized void remove(Record record){pool.remove(record);}
+
     public static synchronized boolean isContain(Record record){
         return pool.contains(record);
     }

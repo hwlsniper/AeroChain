@@ -1,17 +1,11 @@
 package main;
 
-import model.block.Block;
 import node.consensus.mainStream.generateBlock.GenerateBlock;
-import model.node.Node;
 import node.communication.Receiver;
 import node.consensus.mainStream.prepared.Prepared;
-import util.Log;
-import util.hash.Hash;
 import util.simulator.Simulator;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -37,13 +31,6 @@ public class Main {
             BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
             String input;
             while ((input = stdin.readLine()) != null){
-                if (input.equals("show")){
-                    List<Block> result = Node.getBlockChain();
-                    for (Block b : result)
-                        Log.log(b.toString(), "blocks", true);
-                }
-                if (input.startsWith("f:"))
-                    Node.setFaultyNodeNums(input.replace("f:" , ""));
                 if (input.equals("exit")){
                     Clean.cleanUp();
                     executorService.shutdown();

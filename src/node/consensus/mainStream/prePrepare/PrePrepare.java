@@ -62,6 +62,8 @@ public class PrePrepare {
     }
 
     private static boolean isValid(PrePrepareModel prePrepare){
+        //主节点直接认可自己提出的区块
+        if (prePrepare.getPrimary() == Node.getId()) return true;
         if (!(Node.getView() == prePrepare.getView())) return false;
         if (Node.getBlockChainHeight() + 1 != prePrepare.getHeight()) return false;
         Block block = prePrepare.getBlock();
