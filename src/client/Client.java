@@ -13,21 +13,10 @@ import java.io.*;
  * 理论上应该把区块链客户端从区块链应用中剥离，单独部署，但是在原型系统中为了简单，把客户端作为
  * 区块链节点的一部分功能实现。
  *
- * 客户端功能：（1）接受用户从控制台的输入，将数据在区块链中存储，同时把用户输入的数据在日志中记录
+ * 客户端功能：（1）接受用户从雷达的输入，将数据在区块链中存储
  */
-public class Client implements Runnable{
-    @Override
-    public void run() {
-        BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-        String input;
-        try {
-            while ((input = stdin.readLine()) != null){
-                Log.log(input, "client.txt", true);
-                Record record = new Record(input);
-                Sender.broadcast("<record>" + JSON.toJSONString(record));
-            }
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+public class Client{
+    static void send(Record record) {
+        Sender.broadcast("<record>" + JSON.toJSONString(record));
     }
 }

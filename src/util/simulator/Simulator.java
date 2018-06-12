@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import constant.Constant;
 import model.record.Record;
 import node.communication.Sender;
-import util.Log;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +15,14 @@ public class Simulator implements Runnable{
         try {
             bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(Constant.SIMULATE), "UTF-8"));
         } catch (UnsupportedEncodingException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clean(){
+        try {
+            bufferedReader.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -34,7 +41,6 @@ public class Simulator implements Runnable{
             }
             if (record == null)
                 record = new Record("end!");
-            Log.log(record.toString(), "simulate.txt", true);
             Sender.broadcast("<record>"+JSON.toJSONString(record));
         }
     }

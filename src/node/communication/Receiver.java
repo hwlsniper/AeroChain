@@ -1,9 +1,10 @@
 package node.communication;
 
+import constant.Constant;
 import main.Main;
 import util.Log;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 
 /**
@@ -13,18 +14,20 @@ import java.net.*;
 public class Receiver implements Runnable {
     private volatile static DatagramSocket server;
 
+    private static PrintWriter printWriter;
+
     public void run(){
         while (Main.running){
-            byte[] recvBuf = new byte[8192];
-            DatagramPacket recvPacket = new DatagramPacket(recvBuf , recvBuf.length);
+            byte[] buf = new byte[8192];
+            DatagramPacket packet = new DatagramPacket(buf , buf.length);
             try {
-                server.receive(recvPacket);
+                server.receive(packet);
             }catch (IOException e){
                 e.printStackTrace();
             }
-            String recvStr = new String(recvPacket.getData() , 0 , recvPacket.getLength());
-            Log.log(recvStr, "receive.txt", true);
-            Resolver.resolve(recvStr);
+            String receive = new String(packet.getData() , 0 , packet.getLength());
+            printWriter.println(receive);
+            Resolver.resolve(receive);
         }
     }
 
@@ -33,16 +36,22 @@ public class Receiver implements Runnable {
             synchronized (Receiver.class){
                 if (server == null){
                     try {
-                        server = new DatagramSocket(7777);
+                        server = new DatagramSocket(Constant.PORT);
                     } catch (SocketException e) {
                         e.printStackTrace();
                     }
                 }
             }
         }
+        try {
+            printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.LOG_BASE_PATH + "receive.txt", true), "UTF-8")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void clean(){
         server.close();
+        printWriter.close();
     }
 }

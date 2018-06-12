@@ -1,5 +1,6 @@
 package node.communication;
 
+import client.Client;
 import com.alibaba.fastjson.JSON;
 import model.node.Node;
 import model.node.consensusMessage.*;

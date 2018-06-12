@@ -43,11 +43,10 @@ public class Prepare {
     }
 
     /**
-     * 节点接收一条prepare消息后，首先记录日志，进行验证，如果认可，则将当前区块的确认数加一
+     * 节点接收一条prepare消息后，进行验证，如果认可，则将当前区块的确认数加一
      * @param prepare 节点广播的prepare消息
      */
     public synchronized static void process(PrepareModel prepare){
-        Log.log(prepare.toString(), "prepareLog" , true);
         if (isValid(prepare)) {
             setValidPrepare(validPrepare + 1);
             evidence.add(prepare);

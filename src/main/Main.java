@@ -1,5 +1,6 @@
 package main;
 
+import client.MulticastReceiver;
 import node.consensus.mainStream.generateBlock.GenerateBlock;
 import node.communication.Receiver;
 import node.consensus.mainStream.prepared.Prepared;
@@ -26,7 +27,7 @@ public class Main {
         executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());
         executorService.execute(new Prepared());
-//        executorService.execute(new Client());
+        executorService.execute(new MulticastReceiver());
         while (true){
             BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
             String input;

@@ -8,6 +8,10 @@ import java.util.List;
 public class Constant {
     public static final int PORT = 7777;
 
+    public static final int RADAR_PORT = 8800;
+
+    public static final String MULTICAST_IP = "230.0.0.1";
+
     public static final int CHECKPOINT_HEIGHT = 60;
 
     public static final int BLOCK_GAP = 5;

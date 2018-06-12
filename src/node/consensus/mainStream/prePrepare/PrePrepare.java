@@ -52,7 +52,6 @@ public class PrePrepare {
      * @param prePrepare 主节点广播的prePrepare消息
      */
     public static synchronized void process(PrePrepareModel prePrepare){
-        Log.log(prePrepare.toString() , "prePrepareLog" , true);
         if (isValid(prePrepare)){
             setDigest(prePrepare.getDigest());
             setBlock(prePrepare.getBlock());

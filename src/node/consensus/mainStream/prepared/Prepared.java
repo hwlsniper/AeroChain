@@ -13,6 +13,7 @@ import node.consensus.mainStream.prepare.Prepare;
 import node.consensus.viewChange.ViewChange;
 import util.Log;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -28,6 +29,20 @@ import java.util.stream.Collectors;
 public class Prepared implements Runnable {
     @MulThreadShareData
     private static List<PreparedEvidence> evidence = new ArrayList<>();
+
+    private static PrintWriter printWriter;
+
+    public static void init(){
+        try {
+            printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(Constant.LOG_BASE_PATH + "block.txt", true), "UTF-8")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clean(){
+        printWriter.close();
+    }
 
     @Override
     public void run() {
@@ -46,7 +61,7 @@ public class Prepared implements Runnable {
                 for (Record tmp : block.getData()){
                     BufferPool.remove(tmp);
                 }
-                Log.log(PrePrepare.getBlock().toString(), "block.txt", true);
+                printWriter.println(PrePrepare.getBlock().toString());
                 add(new PreparedEvidence(PrePrepare.getEvidence(), Prepare.getEvidence(), Node.getBlockChainHeight()));
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);
