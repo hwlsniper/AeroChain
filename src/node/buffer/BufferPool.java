@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by DSY on 2018/3/15.
@@ -14,21 +15,21 @@ import java.util.Set;
  */
 public class BufferPool {
     @MulThreadShareData
-    private static Set<Record> pool = new HashSet<>();
+    private static Set<Record> pool = ConcurrentHashMap.newKeySet();
 
-    public static synchronized List<Record> generateBlockRecord(){
+    public static List<Record> generateBlockRecord(){
         List<Record> result = new ArrayList<>(pool);
         pool = new HashSet<>();
         return result;
     }
 
-    public static synchronized void add(Record record){
+    public static void add(Record record){
         pool.add(record);
     }
 
-    public static synchronized void remove(Record record){pool.remove(record);}
+    public static void remove(Record record){pool.remove(record);}
 
-    public static synchronized boolean isContain(Record record){
+    public static boolean isContain(Record record){
         return pool.contains(record);
     }
 }

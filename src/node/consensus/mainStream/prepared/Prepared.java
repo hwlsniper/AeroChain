@@ -1,5 +1,6 @@
 package node.consensus.mainStream.prepared;
 
+import com.alibaba.fastjson.JSON;
 import constant.Constant;
 import model.annotation.MulThreadShareData;
 import model.block.Block;
@@ -61,7 +62,7 @@ public class Prepared implements Runnable {
                 for (Record tmp : block.getData()){
                     BufferPool.remove(tmp);
                 }
-                printWriter.println(PrePrepare.getBlock().toString());
+                printWriter.println(JSON.toJSONString(PrePrepare.getBlock()));
                 add(new PreparedEvidence(PrePrepare.getEvidence(), Prepare.getEvidence(), Node.getBlockChainHeight()));
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);
