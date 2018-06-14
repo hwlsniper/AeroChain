@@ -1,7 +1,11 @@
 package node.consensus.checkpoint;
 
+import com.alibaba.fastjson.JSON;
+import model.annotation.MulThreadShareData;
+import model.node.consensusMessage.CheckpointEvidence;
 import model.node.consensusMessage.CheckpointModel;
 import model.node.Node;
+import node.communication.Sender;
 import util.hash.Hash;
 
 import java.util.*;
@@ -14,6 +18,7 @@ public class Checkpoint {
 
     private static int count = 0;
 
+    @MulThreadShareData
     private static Set<CheckpointModel> evidence = new HashSet<>();
 
     private static int checkpoint = 0;
@@ -26,6 +31,7 @@ public class Checkpoint {
         model.setHeight(Node.getBlockChainHeight());
         stateHash = Hash.hash(model.toString());
         count = 0;
+        Sender.broadcast("<checkpoint>" + JSON.toJSONString(model));
     }
 
     /**
@@ -39,13 +45,20 @@ public class Checkpoint {
             count++;
             if (count >= Node.getCrashThreshold()){
                 checkpoint = model.getHeight();
+                reset();
             }
         }
     }
 
+    private synchronized static void reset(){
+        evidence = new HashSet<>();
+    }
+
     private static void deleteOldData(){}
 
-    public static Set<CheckpointModel> getCheckpointProofs(){
+    public static synchronized CheckpointEvidence getCheckpointProofs(){
+        CheckpointEvidence evidence = new CheckpointEvidence();
+        evidence.setEvidence(Checkpoint.evidence);
         return evidence;
     }
 
