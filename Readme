@@ -7,6 +7,7 @@ AeroChain原型系统
 2.需要给每个节点赋一个不同的节点id
 3.fastjson插件一定要有无参的构造函数
 4.只有一个节点启动simulator线程
+5.只有一个节点启动multicastReceiver线程
 
 TODO list
 1.节点数量动态变化功能由连状作为新的研究点调研后实现

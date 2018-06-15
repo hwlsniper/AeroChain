@@ -16,7 +16,7 @@ import java.util.concurrent.*;
  */
 public class Main {
     /** 标志着区块链应用是否启动 */
-    public static boolean running = false;
+    public static boolean running = true;
 
     private static int name = 1;
 
@@ -45,7 +45,7 @@ public class Main {
             return thread;
         });
         executorService.execute(new Receiver());
-        executorService.execute(new Simulator());
+//        executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());
         executorService.execute(new Prepared());
         executorService.execute(new MulticastReceiver());
