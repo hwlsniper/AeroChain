@@ -18,7 +18,7 @@ public class Receiver implements Runnable {
 
     public void run(){
         while (Main.running){
-            byte[] buf = new byte[8192];
+            byte[] buf = new byte[32768];
             DatagramPacket packet = new DatagramPacket(buf , buf.length);
             try {
                 server.receive(packet);

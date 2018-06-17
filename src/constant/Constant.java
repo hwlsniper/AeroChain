@@ -14,7 +14,7 @@ public class Constant {
 
     public static final int CHECKPOINT_HEIGHT = 60;
 
-    public static final int BLOCK_GAP = 5;
+    public static final int HALF_BLOCK_GAP = 5;
 
     private static final String WINDOWS_BASE_PATH = "C:\\Users\\DSY\\blockchain\\";
 
@@ -26,10 +26,9 @@ public class Constant {
 
     public static List<String> address = new ArrayList<>();
     static {
-//        address.add("127.0.0.1");
-        address.add("192.168.0.152");
-        address.add("192.168.0.117");
-        address.add("192.168.0.127");
+        address.add("192.168.0.124");
+        address.add("192.168.0.123");
+        address.add("192.168.0.37");
 //        address.add("192.168.0.113");
     }
 

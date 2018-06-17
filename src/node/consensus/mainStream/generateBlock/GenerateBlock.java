@@ -20,7 +20,7 @@ public class GenerateBlock implements Runnable{
     public void run() {
         while (!Node.isViewChangeSwitcher() && !Node.isSynSwitcher() && Node.isPrimary()){
             try {
-                TimeUnit.SECONDS.sleep(Constant.BLOCK_GAP);
+                TimeUnit.SECONDS.sleep(Constant.HALF_BLOCK_GAP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -30,7 +30,7 @@ public class GenerateBlock implements Runnable{
             String prevHash = currentHeight == 0 ? "non" : Node.getLatestHash();
             Block block = new Block(merkleRoot, prevHash, Node.getId(), Node.getView(), new Date(), records, currentHeight + 1);
             try {
-                TimeUnit.SECONDS.sleep(Constant.BLOCK_GAP);
+                TimeUnit.SECONDS.sleep(Constant.HALF_BLOCK_GAP);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

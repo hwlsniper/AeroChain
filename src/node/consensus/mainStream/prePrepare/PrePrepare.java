@@ -68,6 +68,7 @@ public class PrePrepare {
         Block block = prePrepare.getBlock();
         for (Record record : block.getData()){
             if (!BufferPool.isContain(record)){
+                Log.log(record.toString(), "error.txt", false);
                 return false;
             }
         }

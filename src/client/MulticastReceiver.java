@@ -42,7 +42,7 @@ public class MulticastReceiver implements Runnable{
             }catch (IOException e){
                 e.printStackTrace();
             }
-            String receive = new String(packet.getData(), 0, packet.getLength());
+            String receive = bytesToHexFun2(packet.getData());
             printWriter.println(receive);
             Client.send(new Record(receive));
         }
@@ -51,4 +51,18 @@ public class MulticastReceiver implements Runnable{
     public static void clean(){
         printWriter.close();
     }
+
+    private static final char[] HEX_CHAR = {'0', '1', '2', '3', '4', '5','6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+    private static String bytesToHexFun2(byte[] bytes) {
+        char[] buf = new char[bytes.length * 2];
+        int index = 0;
+        for(byte b : bytes) {
+            buf[index++] = HEX_CHAR[b >>> 4 & 0xf];
+            buf[index++] = HEX_CHAR[b & 0xf];
+        }
+        "1".getBytes();
+        return new String(buf).replaceAll("0+$", "");
+    }
 }
+
