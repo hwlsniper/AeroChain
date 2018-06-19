@@ -1,7 +1,7 @@
 package client;
 
 import com.alibaba.fastjson.JSON;
-import node.communication.UDP_Sender;
+import node.communication.udp.UDP_Sender;
 import model.record.Record;
 
 /**

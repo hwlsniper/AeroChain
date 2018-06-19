@@ -1,13 +1,11 @@
-package node.communication;
+package node.communication.tcp;
 
 import constant.Constant;
 import main.Main;
+import model.annotation.MulThreadShareData;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
-import java.net.Socket;
 
 /**
  * Created by DSY on 2018/6/19.
@@ -15,6 +13,11 @@ import java.net.Socket;
  */
 public class Tcp_Receiver implements Runnable{
     private static ServerSocket serverSocket;
+
+    private static final int MAX_CONNECTION = 1;
+
+    @MulThreadShareData
+    private static int count = 0;
 
     public static void init(){
         try {
@@ -28,19 +31,14 @@ public class Tcp_Receiver implements Runnable{
     public void run() {
         while (Main.running){
             try {
-                Socket socket = serverSocket.accept();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String line;
-                while ((line = bufferedReader.readLine()) != null){
-                    Resolver.resolve(line);
-                }
-                socket.shutdownInput();
-                bufferedReader.close();
-                socket.close();
+                Thread thread = new Thread(new TcpLongLink(serverSocket.accept()));
+                thread.start();
+                if (addCount() == MAX_CONNECTION) break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
     }
 
     public static void clean(){
@@ -49,5 +47,10 @@ public class Tcp_Receiver implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static synchronized int addCount(){
+        count++;
+        return count;
     }
 }

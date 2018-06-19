@@ -2,9 +2,9 @@ package main;
 
 import client.MulticastReceiver;
 import model.node.Node;
-import node.communication.Tcp_Receiver;
-import node.communication.Tcp_Sender;
-import node.communication.UDP_Receiver;
+import node.communication.tcp.Tcp_Receiver;
+import node.communication.tcp.Tcp_Sender;
+import node.communication.udp.UDP_Receiver;
 import node.consensus.mainStream.prepared.Prepared;
 import util.simulator.Simulator;
 

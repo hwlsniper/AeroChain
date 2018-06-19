@@ -5,7 +5,7 @@ import model.annotation.MulThreadShareData;
 import model.node.consensusMessage.CheckpointEvidence;
 import model.node.consensusMessage.CheckpointModel;
 import model.node.Node;
-import node.communication.UDP_Sender;
+import node.communication.udp.UDP_Sender;
 import util.hash.Hash;
 
 import java.util.*;

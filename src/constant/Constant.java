@@ -30,10 +30,11 @@ public class Constant {
 
     public static List<String> ADDRESS = new ArrayList<>();
     static {
-        ADDRESS.add("192.168.0.124");
-        ADDRESS.add("192.168.0.123");
-        ADDRESS.add("192.168.0.37");
+//        ADDRESS.add("192.168.0.124");
+//        ADDRESS.add("192.168.0.123");
+//        ADDRESS.add("192.168.0.37");
 //        address.add("192.168.0.113");
+        ADDRESS.add("127.0.0.1");
     }
 
     public static final String SIMULATE = BASE_PATH + "simulate.txt";

@@ -3,7 +3,7 @@ package node.consensus.mainStream.prepare;
 import com.alibaba.fastjson.JSON;
 import model.annotation.MulThreadShareData;
 import model.node.consensusMessage.PrepareModel;
-import node.communication.UDP_Sender;
+import node.communication.udp.UDP_Sender;
 import node.consensus.mainStream.prePrepare.PrePrepare;
 import model.node.consensusMessage.PrePrepareModel;
 import model.node.Node;

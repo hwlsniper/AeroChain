@@ -1,4 +1,4 @@
-package node.communication;
+package node.communication.tcp;
 
 import constant.Constant;
 import java.io.*;
@@ -46,7 +46,6 @@ public class Tcp_Sender {
             printWriter.close();
         for (Socket socket : recordSockets){
             try {
-                socket.shutdownOutput();
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();

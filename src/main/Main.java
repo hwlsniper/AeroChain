@@ -2,7 +2,7 @@ package main;
 
 import client.MulticastReceiver;
 import node.consensus.mainStream.generateBlock.GenerateBlock;
-import node.communication.UDP_Receiver;
+import node.communication.udp.UDP_Receiver;
 import node.consensus.mainStream.prepared.Prepared;
 import util.simulator.Simulator;
 import java.io.BufferedReader;

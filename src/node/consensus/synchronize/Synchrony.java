@@ -1,7 +1,7 @@
 package node.consensus.synchronize;
 
 import model.node.consensusMessage.SynchronyModel;
-import node.communication.UDP_Sender;
+import node.communication.udp.UDP_Sender;
 import model.node.Node;
 
 public class Synchrony {

@@ -19,7 +19,7 @@ import model.record.Record;
  * 根据区块链节点收到的消息执行相应的操作
  */
 public class Resolver {
-    static void resolve(String data){
+    public static void resolve(String data){
         if (!Node.isViewChangeSwitcher()){
             if (data.startsWith("<record>")){
                 String tmp = data.replace("<record>", "");

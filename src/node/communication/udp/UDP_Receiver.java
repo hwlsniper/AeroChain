@@ -1,7 +1,8 @@
-package node.communication;
+package node.communication.udp;
 
 import constant.Constant;
 import main.Main;
+import node.communication.Resolver;
 
 import java.io.*;
 import java.net.*;

@@ -3,7 +3,7 @@ package util.simulator;
 import com.alibaba.fastjson.JSON;
 import constant.Constant;
 import model.record.Record;
-import node.communication.UDP_Sender;
+import node.communication.udp.UDP_Sender;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
