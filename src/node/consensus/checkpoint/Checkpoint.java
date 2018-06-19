@@ -5,7 +5,7 @@ import model.annotation.MulThreadShareData;
 import model.node.consensusMessage.CheckpointEvidence;
 import model.node.consensusMessage.CheckpointModel;
 import model.node.Node;
-import node.communication.Sender;
+import node.communication.UDP_Sender;
 import util.hash.Hash;
 
 import java.util.*;
@@ -31,7 +31,7 @@ public class Checkpoint {
         model.setHeight(Node.getBlockChainHeight());
         stateHash = Hash.hash(model.toString());
         count = 0;
-        Sender.broadcast("<checkpoint>" + JSON.toJSONString(model));
+        UDP_Sender.broadcast("<checkpoint>" + JSON.toJSONString(model));
     }
 
     /**

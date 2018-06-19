@@ -1,12 +1,8 @@
 package client;
 
 import com.alibaba.fastjson.JSON;
-import constant.Constant;
-import node.communication.Sender;
+import node.communication.UDP_Sender;
 import model.record.Record;
-import util.Log;
-
-import java.io.*;
 
 /**
  * Created by DSY on 2018/5/10.
@@ -17,6 +13,6 @@ import java.io.*;
  */
 public class Client{
     static void send(Record record) {
-        Sender.broadcast("<record>" + JSON.toJSONString(record));
+        UDP_Sender.broadcast("<record>" + JSON.toJSONString(record));
     }
 }

@@ -3,11 +3,10 @@ package node.consensus.mainStream.prepare;
 import com.alibaba.fastjson.JSON;
 import model.annotation.MulThreadShareData;
 import model.node.consensusMessage.PrepareModel;
-import node.communication.Sender;
+import node.communication.UDP_Sender;
 import node.consensus.mainStream.prePrepare.PrePrepare;
 import model.node.consensusMessage.PrePrepareModel;
 import model.node.Node;
-import util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +37,7 @@ public class Prepare {
             model.setView(prePrepare.getView());
             model.setHeight(prePrepare.getHeight());
             model.setDigest(prePrepare.getDigest());
-            Sender.broadcast("<prepare>" + JSON.toJSONString(model));
+            UDP_Sender.broadcast("<prepare>" + JSON.toJSONString(model));
         }
     }
 

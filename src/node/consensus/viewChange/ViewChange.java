@@ -4,17 +4,13 @@ import com.alibaba.fastjson.JSON;
 import main.Clean;
 import model.node.consensusMessage.PreparedEvidence;
 import model.node.consensusMessage.ViewChangeModel;
-import node.communication.Sender;
+import node.communication.UDP_Sender;
 import node.consensus.checkpoint.Checkpoint;
 import node.consensus.mainStream.prepared.Prepared;
-import model.block.Block;
 import model.node.Node;
-import node.communication.Resolver;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ViewChange {
     private static List<ViewChangeModel> viewChangeProofs = new ArrayList<>();
@@ -32,7 +28,7 @@ public class ViewChange {
         model.setLatestCheckpoint(Checkpoint.getLatesetCheckpoint());
         List<PreparedEvidence> evidence = Prepared.getEvidenceByHeight(Checkpoint.getLatesetCheckpoint() + 1, Node.getBlockChainHeight());
         model.setPreparedEvidence(evidence);
-        Sender.broadcast("<view-change>" + JSON.toJSONString(model));
+        UDP_Sender.broadcast("<view-change>" + JSON.toJSONString(model));
     }
 
     public static void process(ViewChangeModel model){

@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Constant {
-    public static final int PORT = 7777;
+    public static final int UDP_PORT = 7777;
+
+    public static final int TCP_PORT = 6666;
 
     public static final int RADAR_PORT = 8800;
+
+    public static final int RECORD_PORT = 8888;
 
     public static final String MULTICAST_IP = "230.0.0.1";
 
@@ -24,11 +28,11 @@ public class Constant {
 
     public static final String LOG_BASE_PATH = BASE_PATH + File.separator + "log" + File.separator;
 
-    public static List<String> address = new ArrayList<>();
+    public static List<String> ADDRESS = new ArrayList<>();
     static {
-        address.add("192.168.0.124");
-        address.add("192.168.0.123");
-        address.add("192.168.0.37");
+        ADDRESS.add("192.168.0.124");
+        ADDRESS.add("192.168.0.123");
+        ADDRESS.add("192.168.0.37");
 //        address.add("192.168.0.113");
     }
 

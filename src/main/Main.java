@@ -2,7 +2,7 @@ package main;
 
 import client.MulticastReceiver;
 import node.consensus.mainStream.generateBlock.GenerateBlock;
-import node.communication.Receiver;
+import node.communication.UDP_Receiver;
 import node.consensus.mainStream.prepared.Prepared;
 import util.simulator.Simulator;
 import java.io.BufferedReader;
@@ -44,7 +44,7 @@ public class Main {
             }
             return thread;
         });
-        executorService.execute(new Receiver());
+        executorService.execute(new UDP_Receiver());
 //        executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());
         executorService.execute(new Prepared());

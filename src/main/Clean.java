@@ -1,7 +1,9 @@
 package main;
 
 import client.MulticastReceiver;
-import node.communication.Receiver;
+import node.communication.Tcp_Receiver;
+import node.communication.Tcp_Sender;
+import node.communication.UDP_Receiver;
 import node.consensus.mainStream.prepared.Prepared;
 import util.simulator.Simulator;
 
@@ -10,9 +12,11 @@ import util.simulator.Simulator;
  */
 public class Clean {
     public static void cleanUp(){
-        Receiver.clean();
+        UDP_Receiver.clean();
         MulticastReceiver.clean();
         Prepared.clean();
         Simulator.clean();
+        Tcp_Sender.clean();
+        Tcp_Receiver.clean();
     }
 }

@@ -9,7 +9,6 @@ public class Log {
     /**
      * 只有当偶尔调用这个方法的时候才使用，为了避免经常的打开、关闭流
      */
-    @Deprecated
     public static void log(String log , String path , boolean append){
         try {
             PrintWriter printWriter = new PrintWriter(new BufferedWriter(new OutputStreamWriter(new FileOutputStream(basePath + path, append), "UTF-8")));

@@ -7,7 +7,7 @@ import model.node.Node;
 import model.node.consensusMessage.PrePrepareModel;
 import model.record.Record;
 import node.buffer.BufferPool;
-import node.communication.Sender;
+import node.communication.UDP_Sender;
 import node.consensus.mainStream.prepare.Prepare;
 import util.Log;
 import util.hash.Hash;
@@ -44,7 +44,7 @@ public class PrePrepare {
         model.setHeight(Node.getBlockChainHeight() + 1);
         model.setBlock(block);
         model.setDigest(Hash.hash(block.toString()));
-        Sender.broadcast("<pre-prepare>" + JSON.toJSONString(model));
+        UDP_Sender.broadcast("<pre-prepare>" + JSON.toJSONString(model));
     }
 
     /**

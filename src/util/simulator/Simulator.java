@@ -3,7 +3,7 @@ package util.simulator;
 import com.alibaba.fastjson.JSON;
 import constant.Constant;
 import model.record.Record;
-import node.communication.Sender;
+import node.communication.UDP_Sender;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +41,7 @@ public class Simulator implements Runnable{
             }
             if (record == null)
                 record = new Record("end!");
-            Sender.broadcast("<record>"+JSON.toJSONString(record));
+            UDP_Sender.broadcast("<record>"+JSON.toJSONString(record));
         }
     }
 

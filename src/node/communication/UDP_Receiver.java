@@ -2,7 +2,6 @@ package node.communication;
 
 import constant.Constant;
 import main.Main;
-import util.Log;
 
 import java.io.*;
 import java.net.*;
@@ -11,7 +10,7 @@ import java.net.*;
  * Created by DSY on 2018/3/15.
  * 区块链节点使用UDP协议与彼此和客户端通信
  */
-public class Receiver implements Runnable {
+public class UDP_Receiver implements Runnable {
     private volatile static DatagramSocket server;
 
     private static PrintWriter printWriter;
@@ -33,10 +32,10 @@ public class Receiver implements Runnable {
 
     public static void init(){
         if (server == null){
-            synchronized (Receiver.class){
+            synchronized (UDP_Receiver.class){
                 if (server == null){
                     try {
-                        server = new DatagramSocket(Constant.PORT);
+                        server = new DatagramSocket(Constant.UDP_PORT);
                     } catch (SocketException e) {
                         e.printStackTrace();
                     }
