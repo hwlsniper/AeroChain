@@ -69,7 +69,7 @@ public class Checkpoint {
         return example.getHeight() == checkpoint;
     }
 
-    public static int getLatesetCheckpoint() {
+    public static int getLatestCheckpoint() {
         return checkpoint;
     }
 }

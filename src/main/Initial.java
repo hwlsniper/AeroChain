@@ -17,5 +17,8 @@ class Initial {
         Prepared.init();
         Tcp_Sender.init();
         Tcp_Receiver.init();
+        Main.setRunning(true);
+        Node.setViewChangeSwitcher(false);
+        Node.setSynSwitcher(false);
     }
 }

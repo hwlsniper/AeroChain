@@ -13,11 +13,11 @@ import java.net.*;
  */
 public class UDP_Receiver implements Runnable {
     private volatile static DatagramSocket server;
-
+    public static String name = "ttt";
     private static PrintWriter printWriter;
 
     public void run(){
-        while (Main.running){
+        while (Main.isRunning()){
             byte[] buf = new byte[32768];
             DatagramPacket packet = new DatagramPacket(buf , buf.length);
             try {
@@ -25,7 +25,7 @@ public class UDP_Receiver implements Runnable {
             }catch (IOException e){
                 e.printStackTrace();
             }
-            String receive = new String(packet.getData() , 0 , packet.getLength());
+            String receive = new String(packet.getData(), 0, packet.getLength());
             printWriter.println(receive);
             Resolver.resolve(receive);
         }

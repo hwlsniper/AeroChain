@@ -1,6 +1,6 @@
 package model.record;
 
-public class Record extends Object{
+public class Record{
     private String record;
 
     public Record(String data){
@@ -31,6 +31,7 @@ public class Record extends Object{
 
     @Override
     public boolean equals(Object record){
+        if (!(record instanceof Record)) return false;
         Record x = (Record) record;
         return this.record.equals(x.record);
     }

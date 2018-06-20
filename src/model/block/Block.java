@@ -83,6 +83,14 @@ public class Block {
         this.timeStamp = timeStamp;
     }
 
+    public int getView() {
+        return view;
+    }
+
+    public void setView(int view) {
+        this.view = view;
+    }
+
     public List<Record> getData() {
         return data;
     }

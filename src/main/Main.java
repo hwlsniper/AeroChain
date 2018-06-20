@@ -16,14 +16,12 @@ import java.util.concurrent.*;
  */
 public class Main {
     /** 标志着区块链应用是否启动 */
-    public static boolean running = true;
+    private static boolean running;
 
     private static int name = 1;
 
     public static void main(String[] args) throws Exception{
-        running = true;
         Initial.init();
-
         ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), r -> {
             Thread thread = new Thread(r);
             switch (name++){
@@ -42,10 +40,12 @@ public class Main {
                 case 5:
                     thread.setName("MulticastReceiver");
             }
+//            thread.setName(r.getClass().getName());
             return thread;
         });
+//        ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.execute(new UDP_Receiver());
-//        executorService.execute(new Simulator());
+        executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());
         executorService.execute(new Prepared());
         executorService.execute(new MulticastReceiver());
@@ -64,5 +64,13 @@ public class Main {
                     Simulator.switcher = false;
             }
         }
+    }
+
+    public static boolean isRunning() {
+        return running;
+    }
+
+    public static void setRunning(boolean running) {
+        Main.running = running;
     }
 }

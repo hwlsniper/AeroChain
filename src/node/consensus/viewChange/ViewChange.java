@@ -15,26 +15,34 @@ import java.util.List;
 public class ViewChange {
     private static List<ViewChangeModel> viewChangeProofs = new ArrayList<>();
 
-    int count;
+    private static int count = 0;
 
     public static void generate(){
         System.out.println("view change");
         Clean.cleanUp();
         System.exit(0);
+
+        Node.setViewChangeSwitcher(true);
         ViewChangeModel model = new ViewChangeModel();
         model.setId(Node.getId());
         model.setCheckpointEvidence(Checkpoint.getCheckpointProofs());
         model.setNewView(Node.getView() + 1);
-        model.setLatestCheckpoint(Checkpoint.getLatesetCheckpoint());
-        List<PreparedEvidence> evidence = Prepared.getEvidenceByHeight(Checkpoint.getLatesetCheckpoint() + 1, Node.getBlockChainHeight());
+        model.setLatestCheckpoint(Checkpoint.getLatestCheckpoint());
+        List<PreparedEvidence> evidence = Prepared.getEvidenceByHeight(Checkpoint.getLatestCheckpoint() + 1, Node.getBlockChainHeight());
         model.setPreparedEvidence(evidence);
         UDP_Sender.broadcast("<view-change>" + JSON.toJSONString(model));
     }
 
     public static void process(ViewChangeModel model){
-        if (model.getNewView() == Node.getId() % Node.getNodeNums()){
+        if (model.getNewView() == Node.getId() % Node.getNodeNum()){
             viewChangeProofs.add(model);
+            count++;
+            if (count >= Node.getThreshold())
+                NewView.generate();
         }
     }
 
+    public static List<ViewChangeModel> getViewChangeProofs() {
+        return viewChangeProofs;
+    }
 }

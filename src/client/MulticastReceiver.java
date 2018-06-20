@@ -34,7 +34,7 @@ public class MulticastReceiver implements Runnable{
 
     @Override
     public void run() {
-        while (Main.running){
+        while (Main.isRunning()){
             byte[] buf = new byte[8192];
             DatagramPacket packet = new DatagramPacket(buf , buf.length);
             try {
@@ -61,7 +61,6 @@ public class MulticastReceiver implements Runnable{
             buf[index++] = HEX_CHAR[b >>> 4 & 0xf];
             buf[index++] = HEX_CHAR[b & 0xf];
         }
-        "1".getBytes();
         return new String(buf).replaceAll("0+$", "");
     }
 }

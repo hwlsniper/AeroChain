@@ -16,6 +16,8 @@ public class Tcp_Receiver implements Runnable{
 
     private static final int MAX_CONNECTION = 1;
 
+    public static final String name = Tcp_Receiver.class.getName();
+
     @MulThreadShareData
     private static int count = 0;
 
@@ -29,7 +31,7 @@ public class Tcp_Receiver implements Runnable{
 
     @Override
     public void run() {
-        while (Main.running){
+        while (Main.isRunning()){
             try {
                 Thread thread = new Thread(new TcpLongLink(serverSocket.accept()));
                 thread.start();

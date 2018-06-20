@@ -18,13 +18,13 @@ public class UDP_Sender {
             e.printStackTrace();
         }
         byte[] sendBuf = data.getBytes();
-        InetAddress addr = null;
+        InetAddress address = null;
         try {
-            addr = InetAddress.getByName(ip);
+            address = InetAddress.getByName(ip);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        DatagramPacket sendPacket = new DatagramPacket(sendBuf ,sendBuf.length , addr , Constant.UDP_PORT);
+        DatagramPacket sendPacket = new DatagramPacket(sendBuf,sendBuf.length, address, Constant.UDP_PORT);
         try {
             assert client != null;
             client.send(sendPacket);
@@ -36,7 +36,7 @@ public class UDP_Sender {
 
     public static void broadcast(String data){
         for(String ip : Constant.ADDRESS){
-            sendData(data , ip);
+            sendData(data, ip);
         }
     }
 }

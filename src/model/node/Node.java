@@ -1,5 +1,6 @@
 package model.node;
 
+import model.annotation.MulThreadShareData;
 import model.block.Block;
 import util.hash.Hash;
 import java.util.*;
@@ -15,12 +16,14 @@ public class Node {
      * 判断是否进入同步状态，如果进入同步状态，那么不再发送prepare消息，
      * 但是正常接受prePrepare和prepare消息
      * */
-    private static boolean synSwitcher = false;
+    @MulThreadShareData
+    private static boolean synSwitcher;
 
     /**
      * 判断是否进入视图切换状态，如果进入视图切换状态，则只接受跟视图切换相关的消息
      */
-    private static boolean viewChangeSwitcher = false;
+    @MulThreadShareData
+    private static boolean viewChangeSwitcher;
 
     private static List<Block> blockChain = new ArrayList<>();
 
@@ -29,10 +32,12 @@ public class Node {
      */
     private static List<Block> tmpBlocks = new ArrayList<>();
 
-    private static int id = 1;
+    private static final int id = 1;
 
+    @MulThreadShareData
     private static int primary = 1;
 
+    @MulThreadShareData
     private static int view = 1;
 
     private static int nodeNum = 4;
@@ -44,8 +49,8 @@ public class Node {
     private static int crashThreshold = Integer.MAX_VALUE;
 
     public static void threshold(){
-        int n = Node.getNodeNums();
-        int f = Integer.valueOf(Node.getFaultyNodeNums());
+        int n = Node.getNodeNum();
+        int f = Integer.valueOf(Node.getFaultyNodeNum());
         threshold = (int)Math.ceil((double)(n-f)/2) + f + ((n - f ) % 2 == 0 ? 1 : 0);
         crashThreshold = 2 * f + 1;
     }
@@ -75,56 +80,56 @@ public class Node {
         Node.tmpBlocks = tmpBlocks;
     }
 
-    public static String getFaultyNodeNums() {
+    public static String getFaultyNodeNum() {
         return faultyNodeNum;
     }
 
-    public static void setFaultyNodeNums(String faultyNodeNums) {
-        Node.faultyNodeNum = faultyNodeNums;
+    public static void setFaultyNodeNum(String faultyNodeNum) {
+        Node.faultyNodeNum = faultyNodeNum;
     }
 
     public static int getThreshold() {
         return threshold;
     }
 
-    public static boolean isSynSwitcher() {
+    public static synchronized boolean isSynSwitcher() {
         return synSwitcher;
     }
 
-    public static void setSynSwitcher(boolean synSwitcher) {
+    public static synchronized void setSynSwitcher(boolean synSwitcher) {
         Node.synSwitcher = synSwitcher;
     }
 
-    public static boolean isViewChangeSwitcher() {
+    public static synchronized boolean isViewChangeSwitcher() {
         return viewChangeSwitcher;
     }
 
-    public static void setViewChangeSwitcher(boolean viewChangeSwitcher) {
+    public static synchronized void setViewChangeSwitcher(boolean viewChangeSwitcher) {
         Node.viewChangeSwitcher = viewChangeSwitcher;
     }
 
-    public static int getPrimary() {
+    public static synchronized int getPrimary() {
         return primary;
     }
 
-    public static void setPrimary(int primary) {
+    public static synchronized void setPrimary(int primary) {
         Node.primary = primary;
     }
 
-    public static int getView() {
+    public static synchronized int getView() {
         return view;
     }
 
-    public static void setView(int view) {
+    public static synchronized void setView(int view) {
         Node.view = view;
     }
 
-    public static int getNodeNums() {
+    public static int getNodeNum() {
         return nodeNum;
     }
 
-    public static void setNodeNums(int nodeNums) {
-        Node.nodeNum = nodeNums;
+    public static void setNodeNum(int nodeNum) {
+        Node.nodeNum = nodeNum;
     }
 
     public static int getId() {
