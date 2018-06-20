@@ -34,6 +34,7 @@ public class MulticastReceiver implements Runnable{
 
     @Override
     public void run() {
+        Thread.currentThread().setName("MulticastReceiver");
         while (Main.isRunning()){
             byte[] buf = new byte[8192];
             DatagramPacket packet = new DatagramPacket(buf , buf.length);

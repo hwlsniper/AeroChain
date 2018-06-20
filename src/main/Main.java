@@ -18,32 +18,9 @@ public class Main {
     /** 标志着区块链应用是否启动 */
     private static boolean running;
 
-    private static int name = 1;
-
     public static void main(String[] args) throws Exception{
         Initial.init();
-        ExecutorService executorService = new ThreadPoolExecutor(5, 5, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), r -> {
-            Thread thread = new Thread(r);
-            switch (name++){
-                case 1:
-                    thread.setName("receiver");
-                    break;
-                case 2:
-                    thread.setName("simulator");
-                    break;
-                case 3:
-                    thread.setName("generateBlock");
-                    break;
-                case 4:
-                    thread.setName("prepared");
-                    break;
-                case 5:
-                    thread.setName("MulticastReceiver");
-            }
-//            thread.setName(r.getClass().getName());
-            return thread;
-        });
-//        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.execute(new UDP_Receiver());
         executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());

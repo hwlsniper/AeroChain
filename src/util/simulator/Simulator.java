@@ -28,6 +28,7 @@ public class Simulator implements Runnable{
     }
 
     public void run(){
+        Thread.currentThread().setName("Simulator");
         while (Simulator.switcher){
             Record record = null;
             String line;

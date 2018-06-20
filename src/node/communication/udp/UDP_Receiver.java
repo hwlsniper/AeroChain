@@ -13,10 +13,11 @@ import java.net.*;
  */
 public class UDP_Receiver implements Runnable {
     private volatile static DatagramSocket server;
-    public static String name = "ttt";
+
     private static PrintWriter printWriter;
 
     public void run(){
+        Thread.currentThread().setName("UDP_Receiver");
         while (Main.isRunning()){
             byte[] buf = new byte[32768];
             DatagramPacket packet = new DatagramPacket(buf , buf.length);

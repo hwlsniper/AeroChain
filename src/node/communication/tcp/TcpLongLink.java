@@ -27,6 +27,7 @@ public class TcpLongLink implements Runnable {
 
     @Override
     public void run() {
+        Thread.currentThread().setName("TcpLongLink");
         while (Main.isRunning()){
             try {
                 String line;

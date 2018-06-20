@@ -47,6 +47,7 @@ public class Prepared implements Runnable {
 
     @Override
     public void run() {
+        Thread.currentThread().setName("Prepared");
         while (!Node.isViewChangeSwitcher()){
             try {
                 //为了保证不会过早的验证是否生成区块，使检查新区块的时间和生成新区块的时间错开3秒

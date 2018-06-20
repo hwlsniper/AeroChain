@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class GenerateBlock implements Runnable{
     @Override
     public void run() {
+        Thread.currentThread().setName("GenerateBlock");
         while (!Node.isViewChangeSwitcher() && !Node.isSynSwitcher() && Node.isPrimary()){
             try {
                 TimeUnit.SECONDS.sleep(Constant.HALF_BLOCK_GAP);
