@@ -26,7 +26,7 @@ public class Checkpoint {
     public synchronized static void generate(){
         CheckpointModel model = new CheckpointModel();
         model.setId(Node.getId());
-        model.setDigest(Hash.hash(Node.getBlockChain().get(Node.getBlockChainHeight() - 1).toString()));
+        model.setDigest(Hash.hash(Node.getBlock(Node.getBlockChainHeight()).toString()));
         model.setView(Node.getView());
         model.setHeight(Node.getBlockChainHeight());
         stateHash = Hash.hash(model.toString());

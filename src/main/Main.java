@@ -4,6 +4,7 @@ import client.MulticastReceiver;
 import node.consensus.mainStream.generateBlock.GenerateBlock;
 import node.communication.udp.UDP_Receiver;
 import node.consensus.mainStream.prepared.Prepared;
+import node.consensus.synchronize.Synchrony;
 import util.simulator.Simulator;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -39,6 +40,8 @@ public class Main {
                     Simulator.switcher = true;
                 if (input.equals("simulator_off"))
                     Simulator.switcher = false;
+                if (input.equals("syn"))
+                    Synchrony.generate();
             }
         }
     }

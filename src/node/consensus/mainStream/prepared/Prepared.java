@@ -59,11 +59,17 @@ public class Prepared implements Runnable {
             }
             if (Prepare.getValidPrepare() >= Node.getThreshold()) {
                 Block block = PrePrepare.getBlock();
-                Node.addBlock(block);
+                //根据是否处于同步状态决定存入临时区块链还是正式区块链
+                if (Node.isSynSwitcher()){
+                    Node.addTmpBlock(block);
+                    Log.log(JSON.toJSONString(PrePrepare.getBlock()), "tmpBlocks", true);
+                }else {
+                    Node.addBlock(block);
+                    printWriter.println(JSON.toJSONString(PrePrepare.getBlock()));
+                }
                 for (Record tmp : block.getData()){
                     BufferPool.remove(tmp);
                 }
-                printWriter.println(JSON.toJSONString(PrePrepare.getBlock()));
                 add(new PreparedEvidence(PrePrepare.getEvidence(), Prepare.getEvidence(), Node.getBlockChainHeight()));
                 PrePrepare.setBlock(null);
                 PrePrepare.setDigest(null);

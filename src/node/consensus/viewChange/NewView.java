@@ -1,11 +1,11 @@
 package node.consensus.viewChange;
 
+import com.alibaba.fastjson.JSON;
 import model.node.Node;
 import model.node.consensusMessage.NewViewModel;
-import model.node.consensusMessage.ViewChangeModel;
-import node.consensus.synchronize.Synchrony;
-
-import java.util.List;
+import model.node.consensusMessage.ViewChangeEvidence;
+import node.communication.tcp.Tcp_Sender;
+import node.consensus.synchronize.ViewChangeSynchrony;
 
 /**
  * 实现视图切换过程中，新的主节点广播消息的行为
@@ -13,21 +13,23 @@ import java.util.List;
 public class NewView {
     public static void generate(){
         NewViewModel model = new NewViewModel();
-        List<ViewChangeModel> evidence = ViewChange.getViewChangeProofs();
+        ViewChangeEvidence evidence = ViewChange.getViewChangeProofs();
         model.setEvidence(evidence);
         model.setHeight(validHeight(evidence));
         model.setHeight(Node.getId());
         model.setView(Node.getView());
+        model.setId(Node.getId());
+        Tcp_Sender.broadcastRecord("<new-view>" + JSON.toJSONString(model));
     }
 
     public static void process(NewViewModel model){
         if (validHeight(model.getEvidence()) != model.getHeight()) return;
         Node.setView(model.getView());
         Node.setPrimary(model.getId());
-        if (Node.getBlockChainHeight() < model.getHeight()) Synchrony.viewChangeSynchrony(model.getEvidence());
+        if (Node.getBlockChainHeight() < model.getHeight()) ViewChangeSynchrony.synchrony(model.getEvidence());
     }
 
-    private static int validHeight(List<ViewChangeModel> evidence){
+    private static int validHeight(ViewChangeEvidence evidence){
         return 0;
     }
 }

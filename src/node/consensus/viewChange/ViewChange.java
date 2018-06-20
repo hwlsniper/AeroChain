@@ -3,6 +3,7 @@ package node.consensus.viewChange;
 import com.alibaba.fastjson.JSON;
 import main.Clean;
 import model.node.consensusMessage.PreparedEvidence;
+import model.node.consensusMessage.ViewChangeEvidence;
 import model.node.consensusMessage.ViewChangeModel;
 import node.communication.udp.UDP_Sender;
 import node.consensus.checkpoint.Checkpoint;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewChange {
-    private static List<ViewChangeModel> viewChangeProofs = new ArrayList<>();
+    private static ViewChangeEvidence viewChangeProofs = new ViewChangeEvidence();
 
     private static int count = 0;
 
@@ -34,7 +35,7 @@ public class ViewChange {
     }
 
     public static void process(ViewChangeModel model){
-        if (model.getNewView() == Node.getId() % Node.getNodeNum()){
+        if (Node.isViewChangeSwitcher() && model.getNewView() == Node.getId() % Node.getNodeNum()){
             viewChangeProofs.add(model);
             count++;
             if (count >= Node.getThreshold())
@@ -42,7 +43,7 @@ public class ViewChange {
         }
     }
 
-    public static List<ViewChangeModel> getViewChangeProofs() {
+    public static ViewChangeEvidence getViewChangeProofs() {
         return viewChangeProofs;
     }
 }

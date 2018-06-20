@@ -1,5 +1,6 @@
 package node.consensus.synchronize;
 
+import model.node.Node;
 import model.node.consensusMessage.SynchronizedModel;
 
 /**
@@ -12,6 +13,6 @@ public class Synchronized {
     }
 
     public static void process(SynchronizedModel model){
-
+        if (!Node.isSynSwitcher()) return;
     }
 }

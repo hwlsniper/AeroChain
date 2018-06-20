@@ -47,48 +47,24 @@ public class Block {
         return index;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
     public String getMerkleRoot() {
         return merkleRoot;
-    }
-
-    public void setMerkleRoot(String merkleRoot) {
-        this.merkleRoot = merkleRoot;
     }
 
     public String getPrevHash() {
         return prevHash;
     }
 
-    public void setPrevHash(String prevHash) {
-        this.prevHash = prevHash;
-    }
-
     public int getPrimary() {
         return primary;
-    }
-
-    public void setPrimary(int primary) {
-        this.primary = primary;
     }
 
     public Date getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
-    }
-
     public int getView() {
         return view;
-    }
-
-    public void setView(int view) {
-        this.view = view;
     }
 
     public List<Record> getData() {

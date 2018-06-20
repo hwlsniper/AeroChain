@@ -25,11 +25,13 @@ public class Node {
     @MulThreadShareData
     private static boolean viewChangeSwitcher;
 
+    @MulThreadShareData
     private static List<Block> blockChain = new ArrayList<>();
 
     /**
      * 用于存储区块同步过程中，生成的临时区块
      */
+    @MulThreadShareData
     private static List<Block> tmpBlocks = new ArrayList<>();
 
     private static final int id = 1;
@@ -40,9 +42,9 @@ public class Node {
     @MulThreadShareData
     private static int view = 1;
 
-    private static int nodeNum = 4;
+    private static final int nodeNum = 4;
 
-    private static String faultyNodeNum = "1";
+    private static final int faultyNodeNum = 1;
 
     private static int threshold = Integer.MAX_VALUE;
 
@@ -50,7 +52,7 @@ public class Node {
 
     public static void threshold(){
         int n = Node.getNodeNum();
-        int f = Integer.valueOf(Node.getFaultyNodeNum());
+        int f = faultyNodeNum;
         threshold = (int)Math.ceil((double)(n-f)/2) + f + ((n - f ) % 2 == 0 ? 1 : 0);
         crashThreshold = 2 * f + 1;
     }
@@ -72,20 +74,12 @@ public class Node {
         blockChain.add(block);
     }
 
-    public static List<Block> getTmpBlocks() {
+    public static synchronized List<Block> getTmpBlocks() {
         return tmpBlocks;
     }
 
-    public static void setTmpBlocks(List<Block> tmpBlocks) {
-        Node.tmpBlocks = tmpBlocks;
-    }
-
-    public static String getFaultyNodeNum() {
-        return faultyNodeNum;
-    }
-
-    public static void setFaultyNodeNum(String faultyNodeNum) {
-        Node.faultyNodeNum = faultyNodeNum;
+    public static synchronized void addTmpBlock(Block block){
+        tmpBlocks.add(block);
     }
 
     public static int getThreshold() {
@@ -128,20 +122,12 @@ public class Node {
         return nodeNum;
     }
 
-    public static void setNodeNum(int nodeNum) {
-        Node.nodeNum = nodeNum;
-    }
-
     public static int getId() {
         return id;
     }
 
-    public synchronized static List<Block> getBlockChain() {
-        return blockChain;
-    }
-
-    public synchronized static void setBlockChain(List<Block> newBlockChain) {
-        blockChain = newBlockChain;
+    public synchronized static Block getBlock(int height) {
+        return blockChain.get(height - 1);
     }
 
     public static int getCrashThreshold() {

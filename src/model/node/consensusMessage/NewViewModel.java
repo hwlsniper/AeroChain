@@ -12,7 +12,7 @@ public class NewViewModel {
 
     private int view;
 
-    private List<ViewChangeModel> evidence;
+    private ViewChangeEvidence evidence;
 
     public int getId() {
         return id;
@@ -38,11 +38,11 @@ public class NewViewModel {
         this.view = view;
     }
 
-    public List<ViewChangeModel> getEvidence() {
+    public ViewChangeEvidence getEvidence() {
         return evidence;
     }
 
-    public void setEvidence(List<ViewChangeModel> evidence) {
+    public void setEvidence(ViewChangeEvidence evidence) {
         this.evidence = evidence;
     }
 }
