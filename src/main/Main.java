@@ -19,9 +19,10 @@ public class Main {
     /** 标志着区块链应用是否启动 */
     private static boolean running;
 
+    private static ExecutorService executorService = Executors.newFixedThreadPool(5);
+
     public static void main(String[] args) throws Exception{
         Initial.init();
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
         executorService.execute(new UDP_Receiver());
         executorService.execute(new Simulator());
         executorService.execute(new GenerateBlock());
@@ -32,9 +33,7 @@ public class Main {
             String input;
             while ((input = stdin.readLine()) != null){
                 if (input.equals("exit")){
-                    Clean.cleanUp();
-                    executorService.shutdown();
-                    System.exit(0);
+                    Main.shutdown();
                 }
                 if (input.equals("simulator_on"))
                     Simulator.switcher = true;
@@ -52,5 +51,11 @@ public class Main {
 
     public static void setRunning(boolean running) {
         Main.running = running;
+    }
+
+    public static void shutdown(){
+        Clean.cleanUp();
+        executorService.shutdown();
+        System.exit(0);
     }
 }
