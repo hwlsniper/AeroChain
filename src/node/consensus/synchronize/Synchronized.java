@@ -1,5 +1,6 @@
 package node.consensus.synchronize;
 
+import model.block.Block;
 import model.node.Node;
 import model.node.consensusMessage.SynchronizedModel;
 
@@ -8,11 +9,17 @@ import model.node.consensusMessage.SynchronizedModel;
  * 接受到同步请求的节点执行的操作
  */
 public class Synchronized {
-    public static void generate(){
-
-    }
-
     public static void process(SynchronizedModel model){
-        if (!Node.isSynSwitcher()) return;
+        if (Node.isSynSwitcher()) {
+            for (Block block : model.getBlockChain()){
+                Node.addBlock(block);
+            }
+            for (Block block : Node.getTmpBlocks()){
+                if (block.getIndex() > Node.getBlockChainHeight()){
+                    Node.addBlock(block);
+                }
+            }
+            Node.setSynSwitcher(false);
+        }
     }
 }
